@@ -6,36 +6,155 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Challenge - DOM</title>
   </head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background-color: #E8F9FD;
+    }
+    #app {
+      font-family: 'Courier New', Courier, monospace;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 60%;
+      height: 70vh;
+      margin: 5vh auto;
+      background-color: #79DAE8;
+      box-sizing: border-box;
+      padding: 5vh 3vw;
+      border-radius: 10px;
+      box-shadow: 10px 10px 15px #0AA1DD;
+    }
+    
+    #todo-title {
+        margin-bottom: 5px;
+    }
+
+    #todo-subtitle {
+        margin-bottom: 20px;
+    }
+
+    #todo-input {
+      box-sizing: border-box;
+      width: 70%;
+      height: 30px;
+      border-radius: 5px;
+      padding: 5px 10px;
+      margin-bottom: 10px;
+      border: 2px solid #2155CD;
+    }
+
+    #todo-submit {
+      width: 50px;
+      height: 30px;
+      background-color: white ;
+      border: none;
+      border-radius: 4px;
+      box-shadow: 5px 5px 5px #0AA1DD;
+      letter-spacing: 1px;
+      font-size: 0.9em;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    #todo-submit:hover{
+      cursor: pointer;
+      width: 52px;
+      height: 32px;
+      box-shadow: 7px 7px 7px #0AA1DD;
+    }
+
+    #todo-output {
+      list-style: none;
+      background-color: aliceblue;
+      width: 90%;
+      box-sizing: border-box;
+      border-radius: 4px;
+      max-height: 200px;
+      overflow-y : auto;
+    }
+
+    li > h6 {
+      height: 25px;
+      letter-spacing: 0.5px;
+      font-size: 0.9em;
+      padding: 2px 5px;
+      box-sizing: border-box;
+      /* color: tomato; */
+    }
+
+    li:nth-child(even){
+      background-color: #A1E3D8;
+    }
+
+    @media only screen and (min-width: 600px) {
+      #todo-input {
+        width: 50%;
+      }
+    }
+
+    @media only screen and (min-width: 1000) {
+      #todo-input {
+        width: 40%;
+      }
+    }
+  </style>
   <body>
     <div id="app">
       <!-- TODO: Buatlah sebuah header dengan id todo-title -->
+      <h1 id="todo-title">My To Do List</h1>
       <!-- TODO: Buatlah sebuah subtitle dengan id todo-subtitle -->
-
+      <h4 id="todo-subtitle">~ Today I need to ~</h4>
       <!-- Section: input -->
       <!-- TODO: Buatlah sebuah input bertipe text dengan id todo-input -->
+      <input id="todo-input" type="text">
       <!-- TODO: Buatlah sebuah button dengan id todo-submit -->
-
+      <input id="todo-submit" type="button" value="Add">
       <!-- Section output -->
       <!-- TODO: Buatlah sebuah <ul> dengan id todo-output -->
+      <ul id="todo-output">
+        <!-- <li>
+          <h6>ouhiouhu</h6>
+        </li> -->
+      </ul>
     </div>
 
     <!-- ! Untuk tantangan ini, script jangan diubah ke external js yah ! -->
     <script>
       // TODO: Deklarasi variable sesuai dengan kebutuhan di sini
-      let button;
-      let input;
-      let output;
+      let button = document.getElementById("todo-submit");
+      let input = document.getElementById("todo-input");
+      let output = document.getElementById("todo-output");
 
       // TODO: Buatlah sebuah fungsi dengan nama fnClickHandler
       // Fungsi yang digunakan untuk menambahkan tulisan
       // Jangan ubah cara deklarasi fungsinya, cukup isi saja
-      function fnClickHandler(toDoItem) {}
+      function fnClickHandler(e) {
+        if (e.type === "click") {
+          addTodoListItem(input.value);
+        } else if (e.type === "keypress" && e.key === "Enter") {
+          addTodoListItem(input.value);
+        }
+      }
 
       // TODO: register event onclick / addEventListener untuk button
       // akan menjalankan fungsi fnClickHandler
-      
+      button.addEventListener("click", fnClickHandler);
       // TODO: register event onkeypress / addEventListener untuk input
       // sehingga saat di input ditekan enter akan menjalankan fungsi fnClickHandler juga
+      input.addEventListener("keypress", fnClickHandler);
+
+      function addTodoListItem(toDo){
+        let h6text = document.createElement("h6")
+        h6text.innerText = toDo
+        // console.log(h6text);
+        let toDoListItem = document.createElement("li");
+        toDoListItem.appendChild(h6text);
+        output.appendChild(toDoListItem);
+      }
     </script>
   </body>
 </html>
